@@ -1,7 +1,7 @@
 require 'telegram/bot' 
-require 'rosemary'
+#require 'rosemary'
 
-node_finder = Rosemary::Api.new()
+#node_finder = Rosemary::Api.new()
 
 token = ''
 
