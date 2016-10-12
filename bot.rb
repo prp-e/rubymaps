@@ -3,7 +3,8 @@ require 'telegram/bot'
 
 #node_finder = Rosemary::Api.new()
 
-token = ''
+token = ENV['TELEGRAM_BOT_TOKEN']
+raise "No Telegram bot token provided in TELEGRAM_BOT_TOKEN env var" if token.nil? || token.empty?
 
 Telegram::Bot::Client.run(token) do |bot|
  bot.listen do |msg|
