@@ -17,7 +17,10 @@ Telegram::Bot::Client.run(token) do |bot|
 Weblog: Haghiri75.com
 Twitter : prpe26
 Telegram Channel: @rubymaps")
-
+  elsif msg.text == "/start"
+   bot.api.send_message(chat_id: msg.chat.id, text: "Give me a keyword, I search on OSM for you")
+  elsif msg.text == "/stop"
+   bot.api.send_message(chat_id: msg.chat.id, text: "Bye Bye!")
   else
    bot.api.send_message(chat_id: msg.chat.id, text: "http://openstreetmap.org/search?query=#{msg.text.gsub(' ', '+')}")
   end
