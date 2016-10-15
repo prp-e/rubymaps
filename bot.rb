@@ -1,7 +1,11 @@
 require 'telegram/bot' 
+require 'uri'
+require 'net/http'
 #require 'rosemary'
 
 #node_finder = Rosemary::Api.new()
+
+
 
 token = ENV['TELEGRAM_BOT_TOKEN']
 raise "No Telegram bot token provided in TELEGRAM_BOT_TOKEN env var" if token.nil? || token.empty?
@@ -22,7 +26,13 @@ Telegram Channel: @rubymaps")
   elsif msg.text == "/stop"
    bot.api.send_message(chat_id: msg.chat.id, text: "Bye Bye!")
   else
-   bot.api.send_message(chat_id: msg.chat.id, text: "http://openstreetmap.org/search?query=#{msg.text.gsub(' ', '+')}")
+   uri = URI.parse("http://nominatim.openstreetmap.org/search?q=#{msg.txt.gsub(' ', '+'}")
+   response = Net::HTTP.get_response(uri)
+   if response.body.include? "No search results found"
+   bot.api.send_message(chat_id: msg.chat.id, text:"Unfortunately, There is no place #{msg.text} submitted on the maps")
+   else
+   bot.api.send_message(chat_id: msg.chat.id, text: "This place is submitted on http://openstreetmap.org/search?query=#{msg.text.gsub(' ', '+')}") 
+   end
   end
  end 
 end
