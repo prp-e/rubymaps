@@ -26,7 +26,7 @@ Telegram Channel: @rubymaps")
   elsif msg.text == "/stop"
    bot.api.send_message(chat_id: msg.chat.id, text: "Bye Bye!")
   else
-   uri = URI.parse("http://nominatim.openstreetmap.org/search?q=#{msg.txt.gsub(' ', '+'}")
+   uri = URI.parse("http://nominatim.openstreetmap.org/search?q=#{msg.text.gsub(' ', '%20')}")
    response = Net::HTTP.get_response(uri)
    if response.body.include? "No search results found"
    bot.api.send_message(chat_id: msg.chat.id, text:"Unfortunately, There is no place #{msg.text} submitted on the maps")
